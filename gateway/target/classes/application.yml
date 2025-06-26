@@ -1,0 +1,100 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+#<<< API Gateway / Routes
+      routes:
+        - id: AuthorManagement
+          uri: http://localhost:8082
+          predicates:
+            - Path=/undefined/**, /authorLists/**, /authorDetails/**
+        - id: SubscriptionManagement
+          uri: http://localhost:8085
+          predicates:
+            - Path=/subscribers/**, /subscriptions/**, /bookReadHistories/**, /adminSubscriberSummaries/**, /subscriptionStatuses/**, /pointUsageHistories/**, /subscriptionLists/**, /subscriptionDetails/**
+        - id: Library
+          uri: http://localhost:8082
+          predicates:
+            - Path=/books/**, /bookDetails/**, /bestsellerBookLists/**, /bookLists/**, /subscriberDetails/**
+        - id: AIPublicationAutomation
+          uri: http://localhost:8080
+          predicates:
+            - Path=/aiCoverJobs/**, /aiCoverJobDetails/**, /aiCoverJobLists/**
+        - id: PointManagement
+          uri: http://localhost:8084
+          predicates:
+            - Path=/pointWallets/**, /pointWalletDetails/**, /pointExhaustedStatuses/**, /pointTransactionHistories/**
+        - id: ManuscriptPublication
+          uri: http://localhost:8083
+          predicates:
+            - Path=/authors/**, /manuscripts/**, /publicationRequests/**, /authorStatistics/**, /manuscriptDetails/**, /publicationRequestStatuses/**, /manuscriptLists/**, /publicationRequestLists/**, /publicationRequestDetails/**
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+#>>> API Gateway / Routes
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: AuthorManagement
+          uri: http://authorManagement:8080
+          predicates:
+            - Path=/undefined/**, 
+        - id: SubscriptionManagement
+          uri: http://subscriptionManagement:8080
+          predicates:
+            - Path=/subscribers/**, /subscriptions/**, 
+        - id: Library
+          uri: http://library:8080
+          predicates:
+            - Path=/books/**, 
+        - id: AIPublicationAutomation
+          uri: http://aiPublicationAutomation:8080
+          predicates:
+            - Path=/aiCoverJobs/**, 
+        - id: PointManagement
+          uri: http://pointManagement:8080
+          predicates:
+            - Path=/pointWallets/**, 
+        - id: ManuscriptPublication
+          uri: http://manuscriptPublication:8080
+          predicates:
+            - Path=/authors/**, /manuscripts/**, /publicationRequests/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

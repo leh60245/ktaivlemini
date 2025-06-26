@@ -1,0 +1,80 @@
+<template>
+    <div>
+        <Number
+            label="ManuscriptId"
+            v-model="value.manuscriptId"
+            :editMode="editMode"
+        />
+        <String
+            label="Title"
+            v-model="value.title"
+            :editMode="editMode"
+        />
+        <String
+            label="Content"
+            v-model="value.content"
+            :editMode="editMode"
+        />
+        <Date
+            label="CreatedDate"
+            v-model="value.createdDate"
+            :editMode="editMode"
+        />
+        <Date
+            label="UpdatedDate"
+            v-model="value.updatedDate"
+            :editMode="editMode"
+        />
+        <AuthorId
+            offline
+            label="AuthorId"
+            v-model="value.authorId"
+            :editMode="editMode"
+            @change="change"
+        />
+        <ManuscriptType
+            offline
+            label="Type"
+            v-model="value.type"
+            :editMode="editMode"
+            @change="change"
+        />
+        <ManuscriptStatus
+            offline
+            label="Status"
+            v-model="value.status"
+            :editMode="editMode"
+            @change="change"
+        />
+        <v-row class="ma-0 pa-0">
+            <v-spacer></v-spacer>
+            <v-btn width="64px" color="primary" @click="save">
+                저장
+            </v-btn>
+        </v-row>
+    </div>
+</template>
+
+
+<script>
+import BaseEntity from './base-ui/BaseEntity.vue'
+
+export default {
+    name: 'Manuscript',
+    mixins:[BaseEntity],
+    components:{
+    },
+    
+    data: () => ({
+        path: "manuscripts",
+        value: {
+        }
+    }),
+    created(){
+    },
+    computed:{
+    },
+    methods: {
+    },
+}
+</script>
