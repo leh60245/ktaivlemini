@@ -30,10 +30,6 @@ public class AiCoverJob {
 
     private PublicationRequestId publicationRequestId;
 
-    private PublicationRequestId publicationRequestId;
-
-    private PublicationRequestId publicationRequestId;
-
     public static AiCoverJobRepository repository() {
         AiCoverJobRepository aiCoverJobRepository = AiPublicationAutomationApplication.applicationContext.getBean(
             AiCoverJobRepository.class
